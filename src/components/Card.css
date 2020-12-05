@@ -8,3 +8,10 @@
     border-top-right-radius: 10px;
     width: 18rem;
 }
+.trash {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    margin-top: -1rem;
+    cursor: pointer;
+}
