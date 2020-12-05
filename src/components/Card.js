@@ -1,5 +1,6 @@
 import React from 'react';
 import './Card.css';
+import TextInput from './TextInput';
 
 function Card() {
     return (
@@ -14,6 +15,7 @@ function Card() {
                 <li className="list-group-item">TV</li>
             </ul>
             <div className="card-header">
+                <TextInput></TextInput>
             </div>
             </div>
         </div>
