@@ -1,10 +1,14 @@
 import React from 'react'
 
-function TextInput() {
+function TextInput(props) {
+
+    const {onChange, onClick, item} = props
+
     return (
         <div>
-            <form className='from-group'>
-                <input className='form-control' type='text' placeholder='Add Items' required='true'></input><br></br>
+            <form className='from-group' onSubmit={onClick}>
+                <input className='form-control' value={item} type='text' onChange={onChange} placeholder='Add Items' required></input>
+                <br></br>
                 <button type='submit' className='btn btn-success'>Add</button>
             </form>
             

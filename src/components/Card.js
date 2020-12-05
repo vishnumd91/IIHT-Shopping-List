@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Card.css';
 import TextInput from './TextInput';
 
-function Card() {
+function Card(props) {
+
+    const { title } = props;
+
+    const [item, setItem] = useState('')
+
+    const [list, setList] = useState([])
+
+
+    const handleInputChange = (event) =>{
+        setItem(event.target.value)
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        setList(() => [
+            ...list, 
+            item
+        ])
+        setItem('')
+    }
+
     return (
         <div className = 'cardStyle'>
-            <div className="card" Style="width: 18rem;">
+            <div className="card">
                 <div className="card-header">
-                    Shopping List
+                    {title}
                 </div>
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">Laptop</li>
-                <li className="list-group-item">Mobile</li>
-                <li className="list-group-item">TV</li>
+                {list.map((data, index) => 
+                     <li key={index} className="list-group-item">{data}</li>
+                )}
+               
+                
             </ul>
             <div className="card-header">
-                <TextInput></TextInput>
+                <TextInput onChange={handleInputChange} onClick={handleClick} item={item}></TextInput>
             </div>
             </div>
         </div>
