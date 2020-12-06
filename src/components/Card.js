@@ -24,8 +24,11 @@ function Card(props) {
         setItem('')
     }
 
-    const handleDeleteClick = () => {
-        
+    const handleDeleteClick = (index) => {
+        list.splice(index, 1)
+        setList(() => [
+            ...list,
+        ])
     }
 
     return (
@@ -37,7 +40,12 @@ function Card(props) {
             <ul className="list-group list-group-flush">
                 {list.map((data, index) => 
                 <>
-                     <li key={index} className="list-group-item">{data}<span className='trash'><i onClick={handleDeleteClick} className="fas fa-trash-alt"></i></span></li>
+                     <li key={index} className="list-group-item">
+                        {data}
+                        <span className='trash'>
+                        <i onClick={() => handleDeleteClick(index)} className="fas fa-trash-alt"></i>
+                        </span>
+                    </li>
                      
                 </>
                 )}
