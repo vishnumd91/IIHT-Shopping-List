@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 
-const CONNECTION_URL = 'mongodb+srv://vishnu:vishnu@cluster0.uo9sf.mongodb.net/<dbname>?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb+srv://vishnu:vishnu@cluster0.uo9sf.mongodb.net/shopping-list?retryWrites=true&w=majority';
 
 app.use(cors());
 
@@ -19,4 +19,6 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
         console.log('MongoDB Connected Succesfully');
     })
 )
+
+// app.get('/', (req,res) => res.send('<h1>Hello Guys</h1>'));
 
