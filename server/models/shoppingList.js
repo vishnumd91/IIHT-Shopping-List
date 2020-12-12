@@ -6,4 +6,4 @@ const shoppingList = mongoose.Schema({
 
 const ShoppingData = mongoose.model('shoppingList', shoppingList);
 
-export default ShoppingData; 
+module.exports = ShoppingData;
