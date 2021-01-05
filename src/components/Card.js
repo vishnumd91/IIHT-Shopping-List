@@ -4,6 +4,8 @@ import TextInput from './TextInput';
 
 function Card(props) {
 
+    const message = 'You have added no items yet!';
+
     const { title } = props;
 
     const [item, setItem] = useState('')
@@ -11,7 +13,7 @@ function Card(props) {
     const [list, setList] = useState([])
 
 
-    const handleInputChange = (event) =>{
+    const handleInputChange = (event) => {
         setItem(event.target.value)
     }
 
@@ -52,6 +54,7 @@ function Card(props) {
                
                 
             </ul>
+            {list.length === 0 ? <p style={{marginLeft: '35px'}}>{message}</p> : null}
             <div className="card-header">
                 <TextInput onChange={handleInputChange} onClick={handleClick} item={item}></TextInput>
             </div>
