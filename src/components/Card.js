@@ -4,7 +4,7 @@ import TextInput from './TextInput';
 
 function Card(props) {
 
-    const message = 'You have added no items yet!, Please add items';
+    const message = 'You have added no items yet!';
 
     const { title } = props;
 
