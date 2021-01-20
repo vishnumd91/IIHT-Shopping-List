@@ -1,0 +1,6 @@
+{   
+    "presets": [
+      "@babel/preset-env",
+      "NODE_PATH=./src/components:./src NODE_ENV=production browserify ./src/app.js --extension .jsx -t babelify -t brfs | uglifyjs > ./dist/main.js"
+    ] 
+  }
