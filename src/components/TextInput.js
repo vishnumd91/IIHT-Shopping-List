@@ -9,7 +9,7 @@ function TextInput(props) {
             <form className='from-group' onSubmit={onClick}>
                 <input className='form-control' value={item} type='text' onChange={onChange} placeholder='Add Items' required></input>
                 <br></br>
-                <button type='submit' className='btn btn-success'>Add</button>
+                <button data-testid = 'button_test' type='submit' className='btn btn-success'>Add</button>
             </form>
             
         </div>

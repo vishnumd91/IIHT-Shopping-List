@@ -20,8 +20,8 @@ function Card(props) {
     const handleClick = (event) => {
         event.preventDefault();
         setList(() => [
-            ...list, 
-            item
+            item,
+            ...list
         ])
         setItem('')
     }
