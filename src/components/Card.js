@@ -17,7 +17,7 @@ const Card = (props) => {
         }, [])
 
     async function fetchItems() {
-        const getItems = await fetch('/items/getItems');
+        const getItems = await fetch('/getItems');
         if (getItems.ok) {
             const response = await getItems.json();
             setList(response);    
@@ -33,7 +33,7 @@ const Card = (props) => {
 
     const handleClick = (event) => {
         event.preventDefault();
-        fetch('/items/postItems', {
+        fetch('/postItems', {
             method: 'POST',
             body: JSON.stringify({
                 itemName: item,
@@ -49,7 +49,7 @@ const Card = (props) => {
 
     const handleDeleteClick = (id) => {
         if (window.confirm('Are you sure about deleting this item?')) {
-            fetch(`/items/deleteItems/${id}`, {
+            fetch(`/deleteItems/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json'
