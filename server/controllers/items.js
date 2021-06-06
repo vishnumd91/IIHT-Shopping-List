@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const ShoppingData = require('../models/shoppingList');
 
 const getItems = async(req,res) => {
@@ -29,8 +30,19 @@ const addItems = async(req,res) => {
         }
 }
 
+const deleteItems = async(req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send('No items with that ID');
+    }
+    await ShoppingData.findByIdAndRemove(id);
+
+    res.json({message: 'Deleted the Item Successfully'});
+}
+
 
 module.exports = { 
     getItems,
     addItems,
+    deleteItems,
  };

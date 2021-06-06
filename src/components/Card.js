@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Card.css';
 import TextInput from './TextInput';
 
-function Card(props) {
+const Card = (props) => {
 
     const message = 'You have added no items yet!';
 
@@ -12,6 +12,20 @@ function Card(props) {
 
     const [list, setList] = useState([])
 
+    useEffect(() => {
+        fetchItems();
+        }, [])
+
+    async function fetchItems() {
+        const getItems = await fetch('/items/getItems');
+        if (getItems.ok) {
+            const response = await getItems.json();
+            setList(response);    
+        }
+        else {
+            return document.write(`${getItems.status} : ${getItems.statusText}`);
+        }
+    }
 
     const handleInputChange = (event) => {
         setItem(event.target.value)
@@ -19,18 +33,32 @@ function Card(props) {
 
     const handleClick = (event) => {
         event.preventDefault();
-        setList(() => [
-            item,
-            ...list
-        ])
+        fetch('/items/postItems', {
+            method: 'POST',
+            body: JSON.stringify({
+                itemName: item,
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(itemResponse => setList(list.concat(itemResponse)));
         setItem('')
     }
 
-    const handleDeleteClick = (index) => {
-        list.splice(index, 1)
-        setList(() => [
-            ...list,
-        ])
+    const handleDeleteClick = (id) => {
+        if (window.confirm('Are you sure about deleting this item?')) {
+            fetch(`/items/deleteItems/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(res=> res.json())
+            .then(() => fetchItems());    
+        }
+        return fetchItems();
     }
 
     return (
@@ -39,22 +67,21 @@ function Card(props) {
                 <div className="card-header">
                     {title}
                 </div>
-            <ul className="list-group list-group-flush">
-                {list.map((data, index) => 
-                <>
-                     <li key={index} className="list-group-item">
-                        {data}
+
+            {list.map((data) => {
+                const { _id, itemName } = data;
+                return(
+                    <ul className="list-group list-group-flush">
+                        <li key={_id} className="list-group-item">
+                        {itemName}
                         <span className='trash'>
-                        <i onClick={() => handleDeleteClick(index)} className="fas fa-trash-alt"></i>
+                        <i onClick={() => handleDeleteClick(_id)} className="fas fa-trash-alt"></i>
                         </span>
                     </li>
-                     
-                </>
-                )}
-               
-                
-            </ul>
-            {list.length === 0 ? <p style={{marginLeft: '35px'}}>{message}</p> : null}
+                    </ul>
+                );})}
+
+            {!list.length ? <p style={{marginLeft: '35px'}}>{message}</p> : null}
             <div className="card-header">
                 <TextInput onChange={handleInputChange} onClick={handleClick} item={item}></TextInput>
             </div>
