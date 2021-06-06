@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "website": "concurrently \"cd server && npm run dev\" \"npm start \"",
     "cleanBuild": "rimraf ./build/*",
     "build": "npm run cleanBuild && set \"GENERATE_SOURCEMAP=false\" && react-scripts build ",
     "test": "react-scripts test",
@@ -38,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
     "react-test-renderer": "^17.0.1"
   }
 }
