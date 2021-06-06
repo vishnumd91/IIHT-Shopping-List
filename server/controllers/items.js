@@ -31,11 +31,11 @@ const addItems = async(req,res) => {
 }
 
 const deleteItems = async(req, res) => {
-    const { id: _id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).send('No items with that ID');
     }
-    await ShoppingData.findByIdAndRemove(_id);
+    await ShoppingData.findByIdAndRemove(id);
 
     res.json({message: 'Deleted the Item Successfully'});
 }
