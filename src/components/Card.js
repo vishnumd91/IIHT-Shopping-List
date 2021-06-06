@@ -6,6 +6,8 @@ const Card = (props) => {
 
     const message = 'You have added no items yet!';
 
+    const baseUrl = 'https://nodejs-api-shopping-list.herokuapp.com/items';
+
     const { title } = props;
 
     const [item, setItem] = useState('')
@@ -17,7 +19,7 @@ const Card = (props) => {
         }, [])
 
     async function fetchItems() {
-        const getItems = await fetch('/getItems');
+        const getItems = await fetch(`${baseUrl}/getItems`);
         if (getItems.ok) {
             const response = await getItems.json();
             setList(response);    
@@ -33,7 +35,7 @@ const Card = (props) => {
 
     const handleClick = (event) => {
         event.preventDefault();
-        fetch('/postItems', {
+        fetch(`${baseUrl}/postItems`, {
             method: 'POST',
             body: JSON.stringify({
                 itemName: item,
@@ -49,7 +51,7 @@ const Card = (props) => {
 
     const handleDeleteClick = (id) => {
         if (window.confirm('Are you sure about deleting this item?')) {
-            fetch(`/deleteItems/${id}`, {
+            fetch(`${baseUrl}/deleteItems/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json'
