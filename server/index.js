@@ -20,6 +20,10 @@ app.use(express.json());
 
 app.use('/items', itemRoutes);
 
+app.use('/', (req, res) => {
+    res.send('Hello, Welcome to Shopping List API');
+});
+
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
