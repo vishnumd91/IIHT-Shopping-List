@@ -5,8 +5,21 @@ export const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -14,6 +27,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 403) {
       // Token expired or invalid, redirect to login page
       window.location.href = "/";
+      localStorage.removeItem("accessToken");
       localStorage.removeItem("userName");
     }
     return Promise.reject(error);
