@@ -78,7 +78,6 @@ const Login = () => {
     try {
       const loginReq = await axiosInstance.post("auth/login", formData);
       if (loginReq.status === 201) {
-        // localStorage.setItem("accessToken", loginReq.data?.accessToken);
         localStorage.setItem("userName", loginReq.data?.userName);
         navigate("/displayItems");
       } else {
